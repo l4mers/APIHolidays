@@ -4,6 +4,7 @@ import com.restapi.restapi.config.JwtService;
 import com.restapi.restapi.models.user.Role;
 import com.restapi.restapi.models.user.User;
 import com.restapi.restapi.models.user.UserInfo;
+import com.restapi.restapi.models.user.UserMedia;
 import com.restapi.restapi.repositories.UserRepository;
 import com.restapi.restapi.responses.user.UserLoginResponse;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,10 @@ public class AuthenticationService {
                         .firstName(request.getFirstname())
                         .lastName(request.getLastname())
                         .birthDate(request.getBirthDate())
+                        .build())
+                .media(UserMedia.builder()
+                        .avatar("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
+                        .background("https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1150&q=80")
                         .build())
                 .build());
         //var jwtToken = jwtService.generateToken();
