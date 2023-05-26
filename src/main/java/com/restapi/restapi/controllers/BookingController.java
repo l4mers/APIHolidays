@@ -44,22 +44,20 @@ public class BookingController {
     }
     @GetMapping("/get/booking/user/{userId}")
     public ResponseEntity<List<TotalBookingResponse>> userBookings(@PathVariable Long userId){
-        
+
         return ResponseEntity.ok(bookingRepository.findBookingsByBooker(
                 userRepository.findById(userId).get())
-                .stream().map(e->{
-                    return TotalBookingResponse.builder()
-                            .booker(VenueProfileUser.builder()
-                                    .id(e.getBooker().getId())
-                                    .name(e.getBooker().getInfo().getFirstName() + " " + e.getBooker().getInfo().getLastName())
-                                    .avatar(e.getBooker().getMedia().getAvatar())
-                                    .build())
-                            .venue(BookedVenue.builder()
-                                    .venueId(e.getVenue().getId())
-                                    .title(e.getVenue().getTitle())
-                                    .build())
-                            .build();
-                }).toList());
+                .stream().map(e-> TotalBookingResponse.builder()
+                        .booker(VenueProfileUser.builder()
+                                .id(e.getBooker().getId())
+                                .name(e.getBooker().getInfo().getFirstName() + " " + e.getBooker().getInfo().getLastName())
+                                .avatar(e.getBooker().getMedia().getAvatar())
+                                .build())
+                        .venue(BookedVenue.builder()
+                                .venueId(e.getVenue().getId())
+                                .title(e.getVenue().getTitle())
+                                .build())
+                        .build()).toList());
     }
 //    @GetMapping("/get/booking/user/{userId}")
 //    public ResponseEntity<List<TotalBookingResponse>> userBookings(@PathVariable Long userId){
