@@ -5,7 +5,9 @@ import com.restapi.restapi.repositories.BookingRepository;
 import com.restapi.restapi.repositories.UserRepository;
 import com.restapi.restapi.repositories.VenueRepository;
 import com.restapi.restapi.request.BookingRequest;
+import com.restapi.restapi.responses.booking.BookedVenue;
 import com.restapi.restapi.responses.booking.TotalBookingResponse;
+import com.restapi.restapi.responses.venue.VenueProfileUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,11 +43,24 @@ public class BookingController {
                 venueRepository.findById(venueId).get()));
     }
     @GetMapping("/get/booking/user/{userId}")
-    public ResponseEntity<List<Booking>> userBookings(@PathVariable Long userId){
+    public ResponseEntity<List<TotalBookingResponse>> userBookings(@PathVariable Long userId){
+        
         return ResponseEntity.ok(bookingRepository.findBookingsByBooker(
-                userRepository.findById(userId).get()));
+                userRepository.findById(userId).get())
+                .stream().map(e->{
+                    return TotalBookingResponse.builder()
+                            .booker(VenueProfileUser.builder()
+                                    .id(e.getBooker().getId())
+                                    .name(e.getBooker().getInfo().getFirstName() + " " + e.getBooker().getInfo().getLastName())
+                                    .avatar(e.getBooker().getMedia().getAvatar())
+                                    .build())
+                            .venue(BookedVenue.builder()
+                                    .venueId(e.getVenue().getId())
+                                    .title(e.getVenue().getTitle())
+                                    .build())
+                            .build();
+                }).toList());
     }
-
 //    @GetMapping("/get/booking/user/{userId}")
 //    public ResponseEntity<List<TotalBookingResponse>> userBookings(@PathVariable Long userId){
 //
