@@ -5,6 +5,7 @@ import com.restapi.restapi.repositories.BookingRepository;
 import com.restapi.restapi.repositories.UserRepository;
 import com.restapi.restapi.repositories.VenueRepository;
 import com.restapi.restapi.request.BookingRequest;
+import com.restapi.restapi.responses.booking.TotalBookingResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,4 +45,10 @@ public class BookingController {
         return ResponseEntity.ok(bookingRepository.findBookingsByBooker(
                 userRepository.findById(userId).get()));
     }
+
+//    @GetMapping("/get/booking/user/{userId}")
+//    public ResponseEntity<List<TotalBookingResponse>> userBookings(@PathVariable Long userId){
+//
+//        return ResponseEntity.ok(TotalBookingResponse);
+//    }
 }
