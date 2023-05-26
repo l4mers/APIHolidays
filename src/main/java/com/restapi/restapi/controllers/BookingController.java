@@ -57,7 +57,10 @@ public class BookingController {
                                 .venueId(e.getVenue().getId())
                                 .title(e.getVenue().getTitle())
                                 .build())
-                        .build()).toList());
+                        .start(e.getBookingStart())
+                        .end(e.getBookingEnd())
+                        .build())
+                .toList());
     }
 //    @GetMapping("/get/booking/user/{userId}")
 //    public ResponseEntity<List<TotalBookingResponse>> userBookings(@PathVariable Long userId){
