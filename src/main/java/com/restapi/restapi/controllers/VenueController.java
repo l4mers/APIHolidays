@@ -121,45 +121,47 @@ public class VenueController {
         }
         return ResponseEntity.ok("du skrev inte hej");
     }
-
-    @PostMapping("venue/register/{id}")
-    public ResponseEntity<Long> registerVenue(@PathVariable Long id,
-                                              @RequestBody VenueRequest venueRequest){
-
-               return ResponseEntity.ok(venueRepository.save(Venue.builder()
-                        .title(venueRequest.getTitle())
-                        .available(true)
-                        .owner(userRepository.findById(id).orElseThrow())
-                        .amenity(amenityRepository.findByAmenityIn(venueRequest.getAmenities()))
-                        .info(VenueInfo.builder()
-                                .price(venueRequest.getPrice())
-                                .squareMeter(venueRequest.getSquareMeter())
-                                .beds(venueRequest.getBeds())
-                                .guestQuantity(venueRequest.getGuests())
-                                .description(venueRequest.getDescription())
-                                .build())
-                        .venueLocation(VenueLocation.builder()
-                                .country(venueRequest.getCountry())
-                                .zip(venueRequest.getZip())
-                                .city(venueRequest.getCity())
-                                .street(venueRequest.getStreet())
-                                .lat(venueRequest.getLat())
-                                .lng(venueRequest.getLng())
-                                .placeId(venueRequest.getPlaceId())
-                                .state(venueRequest.getState())
-                                .build())
-                        .venueMedia(venueRequest.getMedia().stream().map(e-> VenueMedia.builder()
-                                .image(e.getImage())
-                                .description(e.getDescription())
-                                .build()).collect(Collectors.toList()))
-                .build()).getId());
-
-    }
     @PostMapping("get/venue/register/{id}")
     public ResponseEntity<Long> registerVenueTest(@PathVariable Long id,
                                                @RequestBody VenueRequest venueRequest){
 
         //Venue venue =
+        return ResponseEntity.ok(venueRepository.save(Venue.builder()
+                .title(venueRequest.getTitle())
+                .available(true)
+                .owner(userRepository.findById(id).orElseThrow())
+                .amenity(amenityRepository.findByAmenityIn(venueRequest.getAmenities()))
+                .info(VenueInfo.builder()
+                        .price(venueRequest.getPrice())
+                        .squareMeter(venueRequest.getSquareMeter())
+                        .beds(venueRequest.getBeds())
+                        .guestQuantity(venueRequest.getGuests())
+                        .description(venueRequest.getDescription())
+                        .build())
+                .venueLocation(VenueLocation.builder()
+                        .country(venueRequest.getCountry())
+                        .zip(venueRequest.getZip())
+                        .city(venueRequest.getCity())
+                        .street(venueRequest.getStreet())
+                        .lat(venueRequest.getLat())
+                        .lng(venueRequest.getLng())
+                        .placeId(venueRequest.getPlaceId())
+                        .state(venueRequest.getState())
+                        .build())
+                .venueMedia(venueRequest.getMedia().stream().map(e-> VenueMedia.builder()
+                        .image(e.getImage())
+                        .description(e.getDescription())
+                        .build()).collect(Collectors.toList()))
+                .build()).getId());
+
+    }
+
+    @PostMapping("get/venue/update/{id}")
+    public ResponseEntity<Long> updateVenueTest(@PathVariable Long id,
+                                                  @RequestBody VenueRequest venueRequest){
+        Venue venue = venueRepository.findById(id)
+                .orElseThrow();
+
         return ResponseEntity.ok(venueRepository.save(Venue.builder()
                 .title(venueRequest.getTitle())
                 .available(true)
