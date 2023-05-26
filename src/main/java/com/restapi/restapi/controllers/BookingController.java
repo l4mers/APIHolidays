@@ -56,6 +56,12 @@ public class BookingController {
                         .venue(BookedVenue.builder()
                                 .venueId(e.getVenue().getId())
                                 .title(e.getVenue().getTitle())
+                                .owner(VenueProfileUser.builder()
+                                        .id(e.getVenue().getOwner().getId())
+                                        .name(e.getVenue().getOwner().getInfo().getFirstName() + " "
+                                         + e.getVenue().getOwner().getInfo().getLastName())
+                                        .avatar(e.getVenue().getOwner().getMedia().getAvatar())
+                                        .build())
                                 .build())
                         .start(e.getBookingStart())
                         .end(e.getBookingEnd())
