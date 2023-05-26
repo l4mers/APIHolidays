@@ -20,7 +20,7 @@ public class BookingController {
     private final UserRepository userRepository;
     private final VenueRepository venueRepository;
 
-    @PutMapping("/get/booking/")
+    @PostMapping("/get/booking")
     public ResponseEntity<String> addBooking(@RequestParam Long userId,
                                              @RequestParam Long venueId,
                                              @RequestBody BookingRequest bookingRequest){
