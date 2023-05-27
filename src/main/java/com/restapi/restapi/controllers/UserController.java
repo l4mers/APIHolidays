@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class UserController {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
 
     /*
