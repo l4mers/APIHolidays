@@ -30,7 +30,7 @@ public class UserController {
         User user = userRepository.findById(id).get();"
 
     */
-    @PostMapping("user/menu/{userId}")
+    @GetMapping("/get/user/menu/{userId}")
     public ResponseEntity<UserMenuResponse> homeScreen(@PathVariable Long userId){
         User user = userRepository.findById(userId).get();
         return ResponseEntity.ok(UserMenuResponse.builder()
@@ -40,7 +40,7 @@ public class UserController {
                 .build());
     }
 
-    @PutMapping("user/media/{userId}")
+    @PutMapping("/get/user/media/{userId}")
     public ResponseEntity<UserMediaResponse> updateUserMedia(@PathVariable Long userId,
                                                              @RequestBody UserMediaRequest userMediaRequest){
         User user = userRepository.findById(userId).get();
