@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin
+
 public class BookingController {
 
     private final BookingRepository bookingRepository;

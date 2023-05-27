@@ -10,7 +10,7 @@ import org.springframework.web.servlet.function.EntityResponse;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin
+
 public class ChatController {
 
     ChatRepository chatRepository;
