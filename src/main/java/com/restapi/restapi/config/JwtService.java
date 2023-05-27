@@ -42,7 +42,7 @@ public class JwtService {
                 .setClaims(additionalClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis())) //Used to validate expire
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60)) //12 timmar + 1000 milis
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 120)) //12 timmar + 1000 milis
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
