@@ -1,5 +1,6 @@
 package com.restapi.restapi.repositories;
 
+import com.restapi.restapi.models.user.User;
 import com.restapi.restapi.models.vanue.Venue;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,6 @@ public interface VenueRepository extends CrudRepository<Venue, Long> {
 
     @Query("SELECT v FROM Venue v JOIN v.venueLocation l GROUP BY l.country ORDER BY COUNT(v) DESC")
     List<Venue> findVenuesByMostPopularCountry(Pageable pageable);
+
+    List<Venue> findAllByOwner(User owner);
 }
