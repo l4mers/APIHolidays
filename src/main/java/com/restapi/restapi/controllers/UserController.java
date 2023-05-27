@@ -28,26 +28,13 @@ public class UserController {
         User user = userRepository.findById(id).get();"
 
     */
-
-//    @PostMapping("user/menu/response")
-//    public ResponseEntity<UserMenuResponse> homeScreen(@RequestHeader long userId){
-//        User user = userRepository.findById(userId).get();
-//        return ResponseEntity.ok(UserMenuResponse.builder()
-//                        .id(user.getId())
-//                        .name(user.getInfo().getFirstName() + " " + user.getInfo().getFirstName())
-//                        .avatar(user.getMedia().getAvatar())
-//                        .email(user.getEmail())
-//                .build());
-//    }
-    @PostMapping("user/menu/response")
-    public ResponseEntity<String> homeScreen(){
-        return ResponseEntity.ok("oyea");
-//        User user = userRepository.findById(userId).get();
-//        return ResponseEntity.ok(UserMenuResponse.builder()
-//                .id(user.getId())
-//                .name(user.getInfo().getFirstName() + " " + user.getInfo().getFirstName())
-//                .avatar(user.getMedia().getAvatar())
-//                .email(user.getEmail())
-//                .build());
+    @PostMapping("user/menu/{userId}")
+    public ResponseEntity<UserMenuResponse> homeScreen(@PathVariable Long userId){
+        User user = userRepository.findById(userId).get();
+        return ResponseEntity.ok(UserMenuResponse.builder()
+                        .email(user.getEmail())
+                        .name(user.getInfo().getFirstName() + " " + user.getInfo().getLastName())
+                        .avatar(user.getMedia().getAvatar())
+                .build());
     }
 }

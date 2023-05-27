@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserMenuResponse {
-    private long id;
     private String name;
     private String avatar;
+    private String email;
 }
