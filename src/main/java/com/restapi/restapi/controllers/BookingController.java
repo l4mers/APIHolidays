@@ -68,6 +68,33 @@ public class BookingController {
                         .build())
                 .toList());
     }
+
+    @GetMapping("/get/booking/venue/{venueId}")
+    public ResponseEntity<List<TotalBookingResponse>> venueBooking(@PathVariable Long venueId){
+
+        return ResponseEntity.ok(bookingRepository.findBookingsByVenue(
+                        venueRepository.findById(venueId).get())
+                .stream().map(e-> TotalBookingResponse.builder()
+                        .booker(VenueProfileUser.builder()
+                                .id(e.getBooker().getId())
+                                .name(e.getBooker().getInfo().getFirstName() + " " + e.getBooker().getInfo().getLastName())
+                                .avatar(e.getBooker().getMedia().getAvatar())
+                                .build())
+                        .venue(BookedVenue.builder()
+                                .venueId(e.getVenue().getId())
+                                .title(e.getVenue().getTitle())
+                                .owner(VenueProfileUser.builder()
+                                        .id(e.getVenue().getOwner().getId())
+                                        .name(e.getVenue().getOwner().getInfo().getFirstName() + " "
+                                                + e.getVenue().getOwner().getInfo().getLastName())
+                                        .avatar(e.getVenue().getOwner().getMedia().getAvatar())
+                                        .build())
+                                .build())
+                        .start(e.getBookingStart())
+                        .end(e.getBookingEnd())
+                        .build())
+                .toList());
+    }
 //    @GetMapping("/get/booking/user/{userId}")
 //    public ResponseEntity<List<TotalBookingResponse>> userBookings(@PathVariable Long userId){
 //
