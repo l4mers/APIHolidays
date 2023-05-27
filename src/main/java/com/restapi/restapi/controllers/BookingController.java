@@ -1,17 +1,21 @@
 package com.restapi.restapi.controllers;
 
 import com.restapi.restapi.models.booking.Booking;
+import com.restapi.restapi.models.vanue.Venue;
 import com.restapi.restapi.repositories.BookingRepository;
 import com.restapi.restapi.repositories.UserRepository;
 import com.restapi.restapi.repositories.VenueRepository;
 import com.restapi.restapi.request.BookingRequest;
 import com.restapi.restapi.responses.booking.BookedVenue;
+import com.restapi.restapi.responses.booking.FullBookingResponse;
 import com.restapi.restapi.responses.booking.TotalBookingResponse;
+import com.restapi.restapi.responses.venue.OwnerVenueBookingResponse;
 import com.restapi.restapi.responses.venue.VenueProfileUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -94,6 +98,33 @@ public class BookingController {
                         .end(e.getBookingEnd())
                         .build())
                 .toList());
+    }
+
+    @GetMapping("booking/user/{userId}")
+    public ResponseEntity<List<OwnerVenueBookingResponse>> ownerBookings(@PathVariable Long userId){
+        List<Venue> venues = venueRepository.findAllByOwner(userRepository.findById(userId).get());
+
+        List<OwnerVenueBookingResponse> response = new ArrayList<>();
+
+        venues.forEach(e->{
+            e.getBookings().forEach(ee->{
+                response.add(OwnerVenueBookingResponse.builder()
+                       .venueId(e.getId())
+                       .venueTitel(e.getTitle())
+                       .bookings(FullBookingResponse.builder()
+                               .booker(VenueProfileUser.builder()
+                                       .id(ee.getBooker().getId())
+                                       .name(ee.getBooker().getInfo().getFirstName() + " " + ee.getBooker().getInfo().getLastName())
+                                       .avatar(ee.getBooker().getMedia().getAvatar())
+                                       .build())
+                               .start(ee.getBookingStart())
+                               .end(ee.getBookingEnd())
+                               .build())
+                       .build());
+            });
+        });
+        return ResponseEntity.ok(response);
+
     }
 //    @GetMapping("/get/booking/user/{userId}")
 //    public ResponseEntity<List<TotalBookingResponse>> userBookings(@PathVariable Long userId){
