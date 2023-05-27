@@ -100,7 +100,7 @@ public class BookingController {
                 .toList());
     }
 
-    @GetMapping("booking/user/{userId}")
+    @GetMapping("/get/booking/owner/{userId}")
     public ResponseEntity<List<OwnerVenueBookingResponse>> ownerBookings(@PathVariable Long userId){
         List<Venue> venues = venueRepository.findAllByOwner(userRepository.findById(userId).get());
 
