@@ -10,7 +10,7 @@ import org.springframework.web.servlet.function.EntityResponse;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://127.0.0.1:5174/*")
+@CrossOrigin(origins = "http://127.0.0.1:5174")
 public class ChatController {
 
     ChatRepository chatRepository;
