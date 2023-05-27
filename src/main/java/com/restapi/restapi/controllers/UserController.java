@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://127.0.0.1:5174/*")
 public class UserController {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
 
     /*
