@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserVenue {
     Long id;
-    String image;
     String title;
-    int rating;
+    String image;
+    Double rating;
     int price;
 }

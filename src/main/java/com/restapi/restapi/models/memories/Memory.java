@@ -25,10 +25,11 @@ public class Memory {
     @Lob
     private String description;
 
-    private String publicMemo;
+    private Boolean publicMemo;
 
-    @OneToOne
-    private User rater;
+    @ManyToOne
+    @JoinColumn
+    private User user;
 
     @OneToMany(mappedBy = "memory")
     private List<MemoryMedia> media;

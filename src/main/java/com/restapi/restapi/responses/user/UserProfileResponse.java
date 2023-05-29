@@ -1,6 +1,7 @@
-package com.restapi.restapi.responses.profile;
+package com.restapi.restapi.responses.user;
 
-import com.restapi.restapi.models.memories.Memory;
+import com.restapi.restapi.responses.profile.UserMemory;
+import com.restapi.restapi.responses.profile.UserVenue;
 import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,18 +14,16 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProfileResponse {
+public class UserProfileResponse {
     private long id;
     private String name;
-    private String picture;
+    private String avatar;
     private String banner;
-    private List<String> languages;
     @Lob
     private String bio;
     private String liveIn;
-
-    private List<Memory> memories;
-
+    private List<String> languages;
+    private List<UserMemory> memories;
     private List<UserVenue> venues;
 
 }

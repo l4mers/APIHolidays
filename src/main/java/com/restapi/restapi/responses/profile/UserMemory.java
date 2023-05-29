@@ -16,7 +16,7 @@ public class UserMemory {
 
     private String title;
     private String description;
-    private String publicMemo;
+    private Boolean publicMemo;
 
     List<UserMemoryMedia> media;
 

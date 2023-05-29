@@ -2,6 +2,7 @@ package com.restapi.restapi.models.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.restapi.restapi.models.booking.Booking;
+import com.restapi.restapi.models.memories.Memory;
 import com.restapi.restapi.models.vanue.Rating;
 import com.restapi.restapi.models.vanue.Venue;
 import jakarta.persistence.*;
@@ -50,6 +51,9 @@ public class User implements UserDetails {
     private UserMedia media;
     @OneToOne(cascade = CascadeType.ALL)
     private UserAddress address;
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Memory> memories;
 
     @Enumerated(EnumType.STRING)
     private Role role;
