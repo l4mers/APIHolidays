@@ -117,7 +117,7 @@ public class VenueController {
                 .id(e.getId())
                 .title(e.getTitle())
                 .amenities(e.getAmenity().stream().map(Amenity::getAmenity).toList())
-                .rating(e.getRating().stream().mapToInt(Rating::getRating).average().getAsDouble())
+                //.rating(e.getRating().stream().mapToInt(Rating::getRating).average().getAsDouble())
                 .price(e.getInfo().getPrice())
                 .guests(e.getInfo().getGuestQuantity())
                 .beds(e.getInfo().getBeds())
