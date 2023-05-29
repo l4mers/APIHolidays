@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VenueProfileRating {
-    private int rating;
+    private Double rating;
     private VenueProfileUser rater;
     private String comment;
     private Date created;

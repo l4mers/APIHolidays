@@ -1,7 +1,7 @@
 package com.restapi.restapi.models.booking;
 
 import com.restapi.restapi.models.user.User;
-import com.restapi.restapi.models.vanue.Venue;
+import com.restapi.restapi.models.venue.Venue;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

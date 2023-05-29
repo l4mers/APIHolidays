@@ -1,6 +1,6 @@
 package com.restapi.restapi.controllers;
 
-import com.restapi.restapi.models.vanue.Amenity;
+import com.restapi.restapi.models.venue.Amenity;
 import com.restapi.restapi.repositories.AmenityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

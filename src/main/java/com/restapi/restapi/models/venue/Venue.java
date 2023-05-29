@@ -1,4 +1,4 @@
-package com.restapi.restapi.models.vanue;
+package com.restapi.restapi.models.venue;
 
 import com.restapi.restapi.models.booking.Booking;
 import com.restapi.restapi.models.user.User;
