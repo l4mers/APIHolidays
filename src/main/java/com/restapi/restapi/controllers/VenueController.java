@@ -139,10 +139,10 @@ public class VenueController {
                 .build()).toList());
     }
 
-    @GetMapping("/get/search")
-    public List<Venue> searchVenues(@RequestBody){
-
-    }
+//    @GetMapping("/get/search")
+//    public List<Venue> searchVenues(@RequestBody){
+//
+//    }
 
 
     @GetMapping("/get/vanues/")
