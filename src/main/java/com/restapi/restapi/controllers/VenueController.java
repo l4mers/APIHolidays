@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://127.0.0.1:5174")
+@CrossOrigin
 public class VenueController {
 
     private final VenueRepository venueRepository;

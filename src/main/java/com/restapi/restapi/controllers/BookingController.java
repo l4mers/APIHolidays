@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://127.0.0.1:5174")
+@CrossOrigin
 public class BookingController {
 
     private final BookingRepository bookingRepository;

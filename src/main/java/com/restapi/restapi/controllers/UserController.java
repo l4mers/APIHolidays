@@ -17,11 +17,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://127.0.0.1:5174")
+@CrossOrigin
 public class UserController {
 
     private final UserRepository userRepository;
-
 
     @GetMapping("/get/user/profile/{userId}")
     public ResponseEntity<?> userProfile(@PathVariable Long userId){

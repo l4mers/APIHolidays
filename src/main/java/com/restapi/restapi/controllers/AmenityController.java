@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://127.0.0.1:5174")
+@CrossOrigin
 public class AmenityController {
 
     private final AmenityRepository amenityRepository;
