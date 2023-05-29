@@ -1,7 +1,7 @@
 package com.restapi.restapi.responses.home;
 
 
-import com.restapi.restapi.models.vanue.Venue;
+import com.restapi.restapi.models.venue.Venue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

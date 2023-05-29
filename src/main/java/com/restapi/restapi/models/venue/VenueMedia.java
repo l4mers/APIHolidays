@@ -1,4 +1,4 @@
-package com.restapi.restapi.models.vanue;
+package com.restapi.restapi.models.venue;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,16 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class VenueLocation {
+public class VenueMedia {
     @Id
     @GeneratedValue
     private Long id;
-    private String street;
-    private String city;
-    private String zip;
-    private String country;
-    private Double lat;
-    private Double lng;
-    private String placeId;
-    private String state;
+    private String image;
+    private String description;
 }

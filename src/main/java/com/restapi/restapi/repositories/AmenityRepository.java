@@ -1,6 +1,6 @@
 package com.restapi.restapi.repositories;
 
-import com.restapi.restapi.models.vanue.Amenity;
+import com.restapi.restapi.models.venue.Amenity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

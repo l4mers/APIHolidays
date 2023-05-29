@@ -1,6 +1,6 @@
 package com.restapi.restapi.controllers;
 
-import com.restapi.restapi.models.vanue.*;
+import com.restapi.restapi.models.venue.*;
 import com.restapi.restapi.repositories.AmenityRepository;
 import com.restapi.restapi.repositories.UserRepository;
 import com.restapi.restapi.repositories.VenueRepository;
@@ -138,6 +138,17 @@ public class VenueController {
                 .bookings(e.getBookings().stream().map(eee-> new VenueBookingResponse(eee.getBookingStart(), eee.getBookingEnd())).toList())
                 .created(e.getCreated())
                 .build()).toList());
+    }
+
+    @GetMapping("/get/search")
+    public List<Venue> searchVenues(@RequestBody){
+
+    }
+
+
+    @GetMapping("/get/vanues/")
+    public List<Venue> getVenuesWithPriceLowerThan(@RequestParam("price") Integer price) {
+        return venueRepository.findVenuesWithPriceLowerThan(price);
     }
 
     @PostMapping("get/test")

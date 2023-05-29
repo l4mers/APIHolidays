@@ -2,7 +2,7 @@ package com.restapi.restapi.controllers;
 
 import com.restapi.restapi.models.language.Language;
 import com.restapi.restapi.models.user.User;
-import com.restapi.restapi.models.vanue.Rating;
+import com.restapi.restapi.models.venue.Rating;
 import com.restapi.restapi.repositories.UserRepository;
 import com.restapi.restapi.request.UserMediaRequest;
 import com.restapi.restapi.responses.profile.UserMemory;

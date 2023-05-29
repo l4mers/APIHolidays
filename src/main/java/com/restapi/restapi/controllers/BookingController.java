@@ -1,7 +1,7 @@
 package com.restapi.restapi.controllers;
 
 import com.restapi.restapi.models.booking.Booking;
-import com.restapi.restapi.models.vanue.Venue;
+import com.restapi.restapi.models.venue.Venue;
 import com.restapi.restapi.repositories.BookingRepository;
 import com.restapi.restapi.repositories.UserRepository;
 import com.restapi.restapi.repositories.VenueRepository;

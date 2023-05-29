@@ -1,4 +1,4 @@
-package com.restapi.restapi.models.vanue;
+package com.restapi.restapi.models.venue;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

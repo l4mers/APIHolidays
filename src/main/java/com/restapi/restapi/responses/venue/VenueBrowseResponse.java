@@ -15,12 +15,12 @@ import java.util.List;
 public class VenueBrowseResponse {
     private Long id;
     private String title;
-    private int beds;
-    private int bathrooms;
-    private int price;
-    private int guests;
-    private double rating;
-    private double squareMeter;
+    private Integer beds;
+    private Integer bathrooms;
+    private Integer price;
+    private Integer guests;
+    private Double rating;
+    private Double squareMeter;
     private String coverPhoto;
     private List<VenueBookingResponse> bookings;
     private VenueProfileLocation location;
