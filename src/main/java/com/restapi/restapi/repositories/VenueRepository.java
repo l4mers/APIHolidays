@@ -22,4 +22,5 @@ public interface VenueRepository extends CrudRepository<Venue, Long> {
     List<Venue> findVenuesByMostPopularCountry(Pageable pageable);
 
     List<Venue> findAllByOwner(User owner);
+    List<Venue> findAll();
 }

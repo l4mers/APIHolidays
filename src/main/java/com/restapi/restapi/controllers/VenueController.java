@@ -65,7 +65,6 @@ public class VenueController {
                 .stream().map(TrendingCountries::new)
                 .collect(Collectors.toList()));
     }
-
     @GetMapping("get/venue/{id}")
     public ResponseEntity<VenueProfile> singleVenue(@PathVariable Long id){
         Venue venue = venueRepository.findById(id).get();
@@ -111,8 +110,53 @@ public class VenueController {
                         .bookings(venue.getBookings().stream().map(e-> new VenueBookingResponse(e.getBookingStart(), e.getBookingEnd())).toList())
                         .created(venue.getCreated())
                 .build());
-
     }
+    @GetMapping("get/venues/all")
+    public ResponseEntity<List<VenueProfile>> getAllVenues(){
+        return ResponseEntity.ok(venueRepository.findAll().stream().map(e -> VenueProfile.builder()
+                .id(e.getId())
+                .title(e.getTitle())
+                .owner(VenueProfileUser.builder()
+                        .id(e.getOwner().getId())
+                        .name(e.getOwner().getInfo().getFirstName() + " " + e.getOwner().getInfo().getLastName())
+                        .avatar(e.getOwner().getMedia().getAvatar())
+                        .build())
+                .amenities(e.getAmenity().stream().map(Amenity::getAmenity).toList())
+                .venueProfileRatings(e.getRating().stream().map(ee->{
+                    VenueProfileRating vpr = new VenueProfileRating();
+                    vpr.setComment(ee.getComment());
+                    vpr.setRater(VenueProfileUser.builder()
+                            .id(ee.getRater().getId())
+                            .avatar(ee.getRater().getMedia().getAvatar())
+                            .name(ee.getRater().getInfo().getFirstName() +
+                                    " " + ee.getRater().getInfo().getLastName())
+                            .build());
+                    vpr.setComment(ee.getComment());
+                    vpr.setCreated(e.getCreated());
+                    return vpr;
+                }).toList())
+                .price(e.getInfo().getPrice())
+                .guestQuantity(e.getInfo().getGuestQuantity())
+                .beds(e.getInfo().getBeds())
+                .bathrooms(e.getInfo().getBathrooms())
+                .squareMeter(e.getInfo().getSquareMeter())
+                .description(e.getInfo().getDescription())
+                .location(VenueProfileLocation.builder()
+                        .street(e.getVenueLocation().getStreet())
+                        .city(e.getVenueLocation().getCity())
+                        .zip(e.getVenueLocation().getZip())
+                        .country(e.getVenueLocation().getCountry())
+                        .lat(e.getVenueLocation().getLat())
+                        .lng(e.getVenueLocation().getLng())
+                        .placeId(e.getVenueLocation().getPlaceId())
+                        .state(e.getVenueLocation().getState())
+                        .build())
+                .media(e.getVenueMedia().stream().map(eee-> new VenueProfileMedia(eee.getImage(), eee.getDescription())).toList())
+                .bookings(e.getBookings().stream().map(eee-> new VenueBookingResponse(eee.getBookingStart(), eee.getBookingEnd())).toList())
+                .created(e.getCreated())
+                .build()).toList());
+    }
+
     @PostMapping("get/test")
     public ResponseEntity<String> test(@RequestBody String tryMe){
         System.out.println(tryMe);
