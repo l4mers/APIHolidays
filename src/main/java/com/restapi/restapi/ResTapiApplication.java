@@ -1,7 +1,22 @@
 package com.restapi.restapi;
 
+import com.restapi.restapi.models.language.Language;
+import com.restapi.restapi.models.user.Role;
+import com.restapi.restapi.models.user.User;
+import com.restapi.restapi.models.user.UserInfo;
+import com.restapi.restapi.models.user.UserMedia;
+import com.restapi.restapi.models.venue.*;
+import com.restapi.restapi.repositories.AmenityRepository;
+import com.restapi.restapi.repositories.LanguageRepository;
+import com.restapi.restapi.repositories.UserRepository;
+import com.restapi.restapi.repositories.VenueRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 
 @SpringBootApplication
@@ -699,7 +714,7 @@ public class ResTapiApplication {
 //                                    .image("bild")
 //                                    .build()))
 //                    .build());
-
+//
 //            List<String> list = List.of("Afrikaans",
 //                    "Albanian",
 //                    "Amharic",

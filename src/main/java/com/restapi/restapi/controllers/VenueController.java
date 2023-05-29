@@ -4,6 +4,7 @@ import com.restapi.restapi.models.venue.*;
 import com.restapi.restapi.repositories.AmenityRepository;
 import com.restapi.restapi.repositories.UserRepository;
 import com.restapi.restapi.repositories.VenueRepository;
+import com.restapi.restapi.request.SearchVenueRequest;
 import com.restapi.restapi.request.VenueRequest;
 import com.restapi.restapi.responses.home.AffordableVenue;
 import com.restapi.restapi.responses.home.HomeScreen;
@@ -140,10 +141,19 @@ public class VenueController {
     }
 
 //    @GetMapping("/get/search")
-//    public List<Venue> searchVenues(@RequestBody){
+//    public List<Venue> searchVenues(@RequestBody SearchVenueRequest searchVenueRequest){
+//        if (searchVenueRequest.getPrice() != 0 ||
+//        searchVenueRequest.getGuests() != 0 ||
+//        !searchVenueRequest.getLocation().equals("") ||
+//        searchVenueRequest.getBooking() != null ||
+//        searchVenueRequest.getAmenities().size() != 0){
+//
+//        }
+//    }
+//
+//    private List<Venue> compareLists(List<List<Venue>> lists){
 //
 //    }
-
 
     @GetMapping("/get/vanues/")
     public List<Venue> getVenuesWithPriceLowerThan(@RequestParam("price") Integer price) {
@@ -189,7 +199,6 @@ public class VenueController {
                         .description(e.getDescription())
                         .build()).collect(Collectors.toList()))
                 .build()).getId());
-
     }
 
     @PutMapping("get/venue/update/{id}")
@@ -197,7 +206,6 @@ public class VenueController {
                                                   @RequestBody VenueRequest venueRequest){
         Venue venue = venueRepository.findById(id)
                 .orElseThrow();
-
         venue.setTitle(venue.getTitle());
         venue.setAmenity(amenityRepository.findByAmenityIn(venueRequest.getAmenities()));
         venue.setInfo(VenueInfo.builder()
