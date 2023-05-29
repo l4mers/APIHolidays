@@ -1,7 +1,5 @@
 package com.restapi.restapi.responses.venue;
 
-import com.restapi.restapi.models.vanue.Amenity;
-import com.restapi.restapi.models.vanue.Rating;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

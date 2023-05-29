@@ -23,4 +23,6 @@ public interface VenueRepository extends CrudRepository<Venue, Long> {
 
     List<Venue> findAllByOwner(User owner);
     List<Venue> findAll();
+    @Query("SELECT v FROM Venue v ORDER BY v.created DESC")
+    List<Venue> findLatestVenuesLimited(Pageable pageable);
 }

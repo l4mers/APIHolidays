@@ -112,8 +112,9 @@ public class VenueController {
                 .build());
     }
     @GetMapping("get/venues/all")
-    public ResponseEntity<List<VenueBrowseResponse>> getAllVenues(){
-        return ResponseEntity.ok(venueRepository.findAll().stream().map(e -> VenueBrowseResponse.builder()
+    public ResponseEntity<List<VenueBrowseResponse>> getAllVenues(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                                  @RequestParam(value = "limit", defaultValue = "100") int limit){
+        return ResponseEntity.ok(venueRepository.findLatestVenuesLimited(PageRequest.of(page, limit)).stream().map(e -> VenueBrowseResponse.builder()
                 .id(e.getId())
                 .title(e.getTitle())
                 .amenities(e.getAmenity().stream().map(Amenity::getAmenity).toList())
