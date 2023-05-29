@@ -24,10 +24,6 @@ public class Rating {
     @ManyToOne
     @JoinColumn
     private User rater;
-
-//    @ManyToOne
-//    @JoinColumn
-//    private Venue venue;
     private Date created;
     private Date updated;
     @PrePersist
