@@ -112,35 +112,17 @@ public class VenueController {
                 .build());
     }
     @GetMapping("get/venues/all")
-    public ResponseEntity<List<VenueProfile>> getAllVenues(){
-        return ResponseEntity.ok(venueRepository.findAll().stream().map(e -> VenueProfile.builder()
+    public ResponseEntity<List<VenueBrowseResponse>> getAllVenues(){
+        return ResponseEntity.ok(venueRepository.findAll().stream().map(e -> VenueBrowseResponse.builder()
                 .id(e.getId())
                 .title(e.getTitle())
-                .owner(VenueProfileUser.builder()
-                        .id(e.getOwner().getId())
-                        .name(e.getOwner().getInfo().getFirstName() + " " + e.getOwner().getInfo().getLastName())
-                        .avatar(e.getOwner().getMedia().getAvatar())
-                        .build())
                 .amenities(e.getAmenity().stream().map(Amenity::getAmenity).toList())
-                .venueProfileRatings(e.getRating().stream().map(ee->{
-                    VenueProfileRating vpr = new VenueProfileRating();
-                    vpr.setComment(ee.getComment());
-                    vpr.setRater(VenueProfileUser.builder()
-                            .id(ee.getRater().getId())
-                            .avatar(ee.getRater().getMedia().getAvatar())
-                            .name(ee.getRater().getInfo().getFirstName() +
-                                    " " + ee.getRater().getInfo().getLastName())
-                            .build());
-                    vpr.setComment(ee.getComment());
-                    vpr.setCreated(e.getCreated());
-                    return vpr;
-                }).toList())
+                .rating(e.getRating().stream().mapToInt(Rating::getRating).average().getAsDouble())
                 .price(e.getInfo().getPrice())
-                .guestQuantity(e.getInfo().getGuestQuantity())
+                .guests(e.getInfo().getGuestQuantity())
                 .beds(e.getInfo().getBeds())
                 .bathrooms(e.getInfo().getBathrooms())
                 .squareMeter(e.getInfo().getSquareMeter())
-                .description(e.getInfo().getDescription())
                 .location(VenueProfileLocation.builder()
                         .street(e.getVenueLocation().getStreet())
                         .city(e.getVenueLocation().getCity())
@@ -151,7 +133,7 @@ public class VenueController {
                         .placeId(e.getVenueLocation().getPlaceId())
                         .state(e.getVenueLocation().getState())
                         .build())
-                .media(e.getVenueMedia().stream().map(eee-> new VenueProfileMedia(eee.getImage(), eee.getDescription())).toList())
+                .coverPhoto(e.getVenueMedia().get(0).getImage())
                 .bookings(e.getBookings().stream().map(eee-> new VenueBookingResponse(eee.getBookingStart(), eee.getBookingEnd())).toList())
                 .created(e.getCreated())
                 .build()).toList());
@@ -169,7 +151,6 @@ public class VenueController {
     public ResponseEntity<Long> registerVenueTest(@PathVariable Long id,
                                                @RequestBody VenueRequest venueRequest){
 
-        //Venue venue =
         return ResponseEntity.ok(venueRepository.save(Venue.builder()
                 .title(venueRequest.getTitle())
                 .available(true)
