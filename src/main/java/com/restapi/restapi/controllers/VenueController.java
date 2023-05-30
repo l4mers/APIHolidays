@@ -183,6 +183,7 @@ public class VenueController {
                         .beds(venueRequest.getBeds())
                         .guestQuantity(venueRequest.getGuests())
                         .description(venueRequest.getDescription())
+                        .bathrooms(venueRequest.getBathrooms())
                         .build())
                 .venueLocation(VenueLocation.builder()
                         .country(venueRequest.getCountry())
