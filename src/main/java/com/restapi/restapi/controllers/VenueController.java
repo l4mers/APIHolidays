@@ -169,7 +169,7 @@ public class VenueController {
         return ResponseEntity.ok("du skrev inte hej");
     }
     @PostMapping("get/venue/register/{id}")
-    public ResponseEntity<Long> registerVenueTest(@PathVariable Long id,
+    public ResponseEntity<Long> registerVenue(@PathVariable Long id,
                                                @RequestBody VenueRequest venueRequest){
 
         return ResponseEntity.ok(venueRepository.save(Venue.builder()
@@ -182,6 +182,7 @@ public class VenueController {
                         .squareMeter(venueRequest.getSquareMeter())
                         .beds(venueRequest.getBeds())
                         .guestQuantity(venueRequest.getGuests())
+                        .bathrooms(venueRequest.getBathrooms())
                         .description(venueRequest.getDescription())
                         .bathrooms(venueRequest.getBathrooms())
                         .build())
@@ -203,7 +204,7 @@ public class VenueController {
     }
 
     @PutMapping("get/venue/update/{id}")
-    public ResponseEntity<Long> updateVenueTest(@PathVariable Long id,
+    public ResponseEntity<Long> updateVenue(@PathVariable Long id,
                                                   @RequestBody VenueRequest venueRequest){
         Venue venue = venueRepository.findById(id)
                 .orElseThrow();

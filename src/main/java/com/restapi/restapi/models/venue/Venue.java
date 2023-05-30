@@ -28,14 +28,18 @@ public class Venue {
     @ManyToMany
     @JoinTable
     private List<Amenity> amenity;
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Rating> rating;
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = CascadeType.ALL)
     private VenueInfo info;
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = CascadeType.ALL)
     private VenueLocation venueLocation;
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VenueMedia> venueMedia;
+    public void removeVenueMedia(VenueMedia venueMedia) {
+        this.venueMedia.remove(venueMedia);
+        venueMedia.setVenue(null);
+    }
     @OneToMany(mappedBy = "venue", cascade = CascadeType.REMOVE)
     private List<Booking> bookings;
     private Date created;
