@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,10 +24,8 @@ public class Venue {
     private String title;
     private boolean available;
     @ManyToOne
-    @JoinColumn
     private User owner;
     @ManyToMany
-    @JoinTable
     private List<Amenity> amenity;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Rating> rating;
@@ -36,11 +35,7 @@ public class Venue {
     private VenueLocation venueLocation;
     @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VenueMedia> venueMedia;
-    public void removeVenueMedia(VenueMedia venueMedia) {
-        this.venueMedia.remove(venueMedia);
-        venueMedia.setVenue(null);
-    }
-    @OneToMany(mappedBy = "venue", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookings;
     private Date created;
     private Date updated;

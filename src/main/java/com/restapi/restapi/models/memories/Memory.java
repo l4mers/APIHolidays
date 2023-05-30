@@ -1,5 +1,6 @@
 package com.restapi.restapi.models.memories;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.restapi.restapi.models.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,7 @@ public class Memory {
     private Boolean publicMemo;
 
     @ManyToOne
-    @JoinColumn
+    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "memory")
