@@ -219,14 +219,36 @@ public class VenueController {
                 .bathrooms(venueRequest.getBathrooms())
                 .description(venueRequest.getDescription())
                 .build());
+        venue.setVenueLocation(VenueLocation.builder()
+                .country(venueRequest.getCountry())
+                .zip(venueRequest.getZip())
+                .city(venueRequest.getCity())
+                .street(venueRequest.getStreet())
+                .lat(venueRequest.getLat())
+                .lng(venueRequest.getLng())
+                .placeId(venueRequest.getPlaceId())
+                .state(venueRequest.getState())
+                .build());
 
-        List<VenueMedia> venueMedia = venueRequest.getMedia().stream().map(e -> VenueMedia.builder()
-                .image(e.getImage())
-                .description(e.getDescription())
-                .venue(venue)
-                .build()).toList();
+        List<VenueMedia> venueMediaList = venue.getVenueMedia();
+        if (venueMediaList == null) {
+            venueMediaList = new ArrayList<>();
+        } else {
+            venueMediaList.clear();
+        }
+        venue.getVenueMedia().forEach(e->{
+            e.setVenue(null);
+        });
 
-        venue.setVenueMedia(venueMedia);
+        for (VenueMediaRequest vmr :
+                venueRequest.getMedia()) {
+            venueMediaList.add(VenueMedia.builder()
+                    .image(vmr.getImage())
+                    .description(vmr.getImage())
+                    .venue(venue)
+                    .build());
+        }
+        venue.setVenueMedia(venueMediaList);
 
         return ResponseEntity.ok(venueRepository.save(venue).getId());
     }
