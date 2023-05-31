@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -160,22 +161,14 @@ public class VenueController {
         return venueRepository.findVenuesWithPriceLowerThan(price);
     }
 
-    @PostMapping("get/test")
-    public ResponseEntity<String> test(@RequestBody String tryMe){
-        System.out.println(tryMe);
-        if(tryMe.equals("hej")){
-            return ResponseEntity.ok("Du skrev hej");
-        }
-        return ResponseEntity.ok("du skrev inte hej");
-    }
-    @PostMapping("get/venue/register/{id}")
-    public ResponseEntity<Long> registerVenue(@PathVariable Long id,
+    @PostMapping("get/venue/register/{userId}")
+    public ResponseEntity<Long> registerVenue(@PathVariable Long userId,
                                                @RequestBody VenueRequest venueRequest){
 
-        return ResponseEntity.ok(venueRepository.save(Venue.builder()
-                .title(venueRequest.getTitle())
+        Venue v = Venue.builder()
+                .title("title")
                 .available(true)
-                .owner(userRepository.findById(id).orElseThrow())
+                .owner(userRepository.findById(userId).orElseThrow())
                 .amenity(amenityRepository.findByAmenityIn(venueRequest.getAmenities()))
                 .info(VenueInfo.builder()
                         .price(venueRequest.getPrice())
@@ -196,16 +189,23 @@ public class VenueController {
                         .placeId(venueRequest.getPlaceId())
                         .state(venueRequest.getState())
                         .build())
-                .venueMedia(venueRequest.getMedia().stream().map(e-> VenueMedia.builder()
-                        .image(e.getImage())
-                        .description(e.getDescription())
-                        .build()).collect(Collectors.toList()))
-                .build()).getId());
+                .venueMedia(new ArrayList<>())
+                .build();
+
+        List<VenueMedia> venueMedia = venueRequest.getMedia().stream().map(e -> VenueMedia.builder()
+                .image(e.getImage())
+                .description(e.getDescription())
+                .venue(v)
+                .build()).toList();
+
+        v.setVenueMedia(venueMedia);
+
+        return ResponseEntity.ok(venueRepository.save(v).getId());
     }
 
     @PutMapping("get/venue/update/{id}")
     public ResponseEntity<Long> updateVenue(@PathVariable Long id,
-                                                  @RequestBody VenueRequest venueRequest){
+                                            @RequestBody VenueRequest venueRequest){
         Venue venue = venueRepository.findById(id)
                 .orElseThrow();
         venue.setTitle(venue.getTitle());
@@ -221,6 +221,22 @@ public class VenueController {
                 .image(e.getImage())
                 .description(e.getDescription())
                 .build()).collect(Collectors.toList()));
-        return ResponseEntity.ok(venue.getId());
+
+        List<VenueMedia> venueMedia = venueRequest.getMedia().stream().map(e -> VenueMedia.builder()
+                .image(e.getImage())
+                .description(e.getDescription())
+                .venue(venue)
+                .build()).toList();
+
+        venue.setVenueMedia(venueMedia);
+
+
+        return ResponseEntity.ok(venueRepository.save(venue).getId());
+    }
+
+    @DeleteMapping("get/venue/delete/{venueId}")
+    public ResponseEntity<String> deleteVenue(@PathVariable Long venueId){
+        venueRepository.deleteById(venueId);
+        return ResponseEntity.ok("deleted");
     }
 }
