@@ -233,13 +233,13 @@ public class VenueController {
 
     @PutMapping("get/venue/updatetest/{id}")
     public ResponseEntity<Long> updateVenueTest(@PathVariable Long id,
-                                            @RequestBody List<VenueMediaRequest> venueRequest){
+                                            @RequestBody VenueMediaRequest venueRequest){
         Venue venue = venueRepository.findById(id).orElseThrow();
-        List<VenueMedia> venueMedia = venueRequest.stream().map(e-> VenueMedia.builder()
-                .image(e.getImage())
-                .description(e.getDescription())
+        List<VenueMedia> venueMedia = List.of(VenueMedia.builder()
+                .image(venueRequest.getImage())
+                .description(venueRequest.getDescription())
                 .venue(venue)
-                .build()).toList();
+                .build());
         venue.setVenueMedia(venueMedia);
 
 
