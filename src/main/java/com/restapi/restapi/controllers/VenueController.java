@@ -5,6 +5,7 @@ import com.restapi.restapi.repositories.AmenityRepository;
 import com.restapi.restapi.repositories.UserRepository;
 import com.restapi.restapi.repositories.VenueRepository;
 import com.restapi.restapi.request.SearchVenueRequest;
+import com.restapi.restapi.request.VenueMediaRequest;
 import com.restapi.restapi.request.VenueRequest;
 import com.restapi.restapi.responses.home.AffordableVenue;
 import com.restapi.restapi.responses.home.HomeScreen;
@@ -215,6 +216,7 @@ public class VenueController {
                 .squareMeter(venueRequest.getSquareMeter())
                 .beds(venueRequest.getBeds())
                 .guestQuantity(venueRequest.getGuests())
+                .bathrooms(venueRequest.getBathrooms())
                 .description(venueRequest.getDescription())
                 .build());
 
@@ -226,6 +228,39 @@ public class VenueController {
 
         venue.setVenueMedia(venueMedia);
 
+        return ResponseEntity.ok(venueRepository.save(venue).getId());
+    }
+
+    @PutMapping("get/venue/updatetest/{id}")
+    public ResponseEntity<Long> updateVenueTest(@PathVariable Long id,
+                                            @RequestBody List<VenueMediaRequest> venueRequest){
+        Venue venue = venueRepository.findById(id).orElseThrow();
+        List<VenueMedia> venueMedia = venueRequest.stream().map(e-> VenueMedia.builder()
+                .image(e.getImage())
+                .description(e.getDescription())
+                .venue(venue)
+                .build()).toList();
+        venue.setVenueMedia(venueMedia);
+
+
+//        venue.setTitle(venue.getTitle());
+//        venue.setAmenity(amenityRepository.findByAmenityIn(venueRequest.getAmenities()));
+//        venue.setInfo(VenueInfo.builder()
+//                .price(venueRequest.getPrice())
+//                .squareMeter(venueRequest.getSquareMeter())
+//                .beds(venueRequest.getBeds())
+//                .guestQuantity(venueRequest.getGuests())
+//                .bathrooms(venueRequest.getBathrooms())
+//                .description(venueRequest.getDescription())
+//                .build());
+//
+//        List<VenueMedia> venueMedia = venueRequest.getMedia().stream().map(e -> VenueMedia.builder()
+//                .image(e.getImage())
+//                .description(e.getDescription())
+//                .venue(venue)
+//                .build()).toList();
+//
+//        venue.setVenueMedia(venueMedia);
 
         return ResponseEntity.ok(venueRepository.save(venue).getId());
     }

@@ -14,10 +14,10 @@ import java.util.List;
 @NoArgsConstructor
 public class VenueRequest {
 
-    private double squareMeter;
-    private int guests;
-    private int beds;
-    private int bathrooms;
+    private Double squareMeter;
+    private Integer guests;
+    private Integer beds;
+    private Integer bathrooms;
 
     private String title;
     @Lob
@@ -34,6 +34,6 @@ public class VenueRequest {
 
     List<String> amenities;
 
-    int price;
+    private Integer price;
     private List<VenueMediaRequest> media;
 }
