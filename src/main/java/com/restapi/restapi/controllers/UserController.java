@@ -32,7 +32,7 @@ public class UserController {
                         .avatar(user.getMedia().getAvatar())
                         .banner(user.getMedia().getBackground())
                         .bio(user.getMedia().getBio())
-                        .liveIn(user.getAddress().getCity() + ", " + user.getAddress().getCountry())
+                        //.liveIn(user.getAddress().getCity() + ", " + user.getAddress().getCountry())
                         .languages(user.getInfo().getLanguage().stream().map(Language::getLanguage).toList())
                         .memories(user.getMemories().stream().map(e-> UserMemory.builder()
                                 .title(e.getTitle())
