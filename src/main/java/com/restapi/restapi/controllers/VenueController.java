@@ -114,6 +114,34 @@ public class VenueController {
                         .created(venue.getCreated())
                 .build());
     }
+
+    @GetMapping("get/venue/owner/{id}")
+    public ResponseEntity<List<VenueBrowseResponse>> getAllVenuesByUser(@PathVariable Long id){
+        return ResponseEntity.ok(venueRepository.findAllByOwner(userRepository.findById(id).orElseThrow()).stream().map(e -> VenueBrowseResponse.builder()
+                .id(e.getId())
+                .title(e.getTitle())
+                .amenities(e.getAmenity().stream().map(Amenity::getAmenity).toList())
+                //.rating(e.getRating().stream().mapToInt(Rating::getRating).average().getAsDouble())
+                .price(e.getInfo().getPrice())
+                .guests(e.getInfo().getGuestQuantity())
+                .beds(e.getInfo().getBeds())
+                .bathrooms(e.getInfo().getBathrooms())
+                .squareMeter(e.getInfo().getSquareMeter())
+                .location(VenueProfileLocation.builder()
+                        .street(e.getVenueLocation().getStreet())
+                        .city(e.getVenueLocation().getCity())
+                        .zip(e.getVenueLocation().getZip())
+                        .country(e.getVenueLocation().getCountry())
+                        .lat(e.getVenueLocation().getLat())
+                        .lng(e.getVenueLocation().getLng())
+                        .placeId(e.getVenueLocation().getPlaceId())
+                        .state(e.getVenueLocation().getState())
+                        .build())
+                .coverPhoto(e.getVenueMedia().get(0).getImage())
+                .bookings(e.getBookings().stream().map(eee-> new VenueBookingResponse(eee.getBookingStart(), eee.getBookingEnd())).toList())
+                .created(e.getCreated())
+                .build()).toList());
+    }
     @GetMapping("get/venues/all")
     public ResponseEntity<List<VenueBrowseResponse>> getAllVenues(){
         return ResponseEntity.ok(venueRepository.findAll().stream().map(e -> VenueBrowseResponse.builder()
