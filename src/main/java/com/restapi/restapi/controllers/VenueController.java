@@ -156,10 +156,10 @@ public class VenueController {
 //
 //    }
 
-    @GetMapping("/get/vanues/")
-    public List<Venue> getVenuesWithPriceLowerThan(@RequestParam("price") Integer price) {
-        return venueRepository.findVenuesWithPriceLowerThan(price);
-    }
+//    @GetMapping("/get/venues/")
+//    public List<Venue> getVenuesWithPriceLowerThan(@RequestParam("price") Integer price) {
+//        return venueRepository.findVenuesWithPriceLowerThan(price);
+//    }
 
     @PostMapping("get/venue/register/{userId}")
     public ResponseEntity<Long> registerVenue(@PathVariable Long userId,
@@ -217,10 +217,6 @@ public class VenueController {
                 .guestQuantity(venueRequest.getGuests())
                 .description(venueRequest.getDescription())
                 .build());
-        venue.setVenueMedia(venueRequest.getMedia().stream().map(e-> VenueMedia.builder()
-                .image(e.getImage())
-                .description(e.getDescription())
-                .build()).collect(Collectors.toList()));
 
         List<VenueMedia> venueMedia = venueRequest.getMedia().stream().map(e -> VenueMedia.builder()
                 .image(e.getImage())
