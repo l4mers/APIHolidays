@@ -115,7 +115,7 @@ public class VenueController {
                 .build());
     }
 
-    @GetMapping("get/venue/owner{id}")
+    @GetMapping("get/venue/owner/{id}")
     public ResponseEntity<List<VenueBrowseResponse>> getAllVenuesByUser(@PathVariable Long id){
         return ResponseEntity.ok(venueRepository.findAllByOwner(userRepository.findById(id).orElseThrow()).stream().map(e -> VenueBrowseResponse.builder()
                 .id(e.getId())
