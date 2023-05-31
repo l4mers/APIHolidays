@@ -261,8 +261,9 @@ public class VenueController {
 //                .build()).toList();
 //
 //        venue.setVenueMedia(venueMedia);
+        venueRepository.save(venue);
 
-        return ResponseEntity.ok(venueRepository.save(venue).getId());
+        return ResponseEntity.ok(3L);
     }
 
     @DeleteMapping("get/venue/delete/{venueId}")
