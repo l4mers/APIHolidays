@@ -16,6 +16,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,213 +27,196 @@ public class ResTapiApplication {
         SpringApplication.run(ResTapiApplication.class, args);
     }
 
-//    @Bean
-//    public CommandLineRunner hej(LanguageRepository languageRepository,
-//                                 UserRepository userRepository,
-//                                 VenueRepository venueRepository,
-//                                 AmenityRepository amenityRepository
-//                                 ){
-//        return (args -> {
-//
-//            userRepository.save(
-//                    User.builder()
-//                    .email("email@mail.se")
-//                    .password("123")
-//                    .role(Role.USER)
-//                    .info(UserInfo.builder()
-//                            .firstName("sven")
-//                            .lastName("svensson")
-//                            .birthDate("1923")
-//                            .build())
-//                            .media(UserMedia.builder()
-//                                    .avatar("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
-//                                    .background("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
-//                                    .build())
-//                    .build());
-//
-//            userRepository.save(
-//                    User.builder()
-//                            .email("bla@mail.se")
-//                            .password("123")
-//                            .role(Role.USER)
-//                            .info(UserInfo.builder()
-//                                    .firstName("saga")
-//                                    .lastName("svensson")
-//                                    .birthDate("5523")
-//                                    .build())
-//                            .media(UserMedia.builder()
-//                                    .avatar("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
-//                                    .background("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
-//                                    .build())
-//                            .build());
-//
-//            userRepository.save(
-//                    User.builder()
-//                            .email("klo@mail.se")
-//                            .password("123")
-//                            .role(Role.USER)
-//                            .info(UserInfo.builder()
-//                                    .firstName("mårten")
-//                                    .lastName("klasson")
-//                                    .birthDate("52132")
-//                                    .build())
-//                            .media(UserMedia.builder()
-//                                    .avatar("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
-//                                    .background("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
-//                                    .build())
-//                            .build());
-//
-//            User rater = userRepository.findByEmail("bla@mail.se").orElseThrow(() -> new EntityNotFoundException("User not found"));
-//            User rater2 = userRepository.findByEmail("klo@mail.se").orElseThrow(() -> new EntityNotFoundException("User not found"));
-//            User owner = userRepository.findByEmail("email@mail.se").orElseThrow(() -> new EntityNotFoundException("User not found"));
-//
-//            userRepository.save(
-//                    User.builder()
-//                            .email("emil@hotmail.com")
-//                            .password("123")
-//                            .role(Role.USER)
-//                            .info(UserInfo.builder()
-//                                    .firstName("Emil")
-//                                    .lastName("Backlund")
-//                                    .birthDate("1992-14-10")
-//                                    .build())
-//                            .media(UserMedia.builder()
-//                                    .avatar("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
-//                                    .background("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
-//                                    .build())
-//                            .build());
-//
-//            userRepository.save(
-//                    User.builder()
-//                            .email("gustav@hotmail.com")
-//                            .password("123")
-//                            .role(Role.USER)
-//                            .info(UserInfo.builder()
-//                                    .firstName("Gustav")
-//                                    .lastName("Henriksson")
-//                                    .birthDate("1991-05-05")
-//                                    .build())
-//                            .media(UserMedia.builder()
-//                                    .avatar("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
-//                                    .background("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
-//                                    .build())
-//                            .build());
-//
-//            amenityRepository.saveAll(List.of(Amenity.builder()
-//                            .amenity("Wifi")
-//                            .build(),
-//                            Amenity.builder()
-//                                    .amenity("Free Parking")
-//                                    .build(),
-//                            Amenity.builder()
-//                                    .amenity("Paid Parking")
-//                                    .build(),
-//                            Amenity.builder()
-//                                    .amenity("Public Transportation")
-//                                    .build(),
-//                            Amenity.builder()
-//                                    .amenity("EV Charging Station")
-//                                    .build(),
-//                            Amenity.builder()
-//                                    .amenity("Handicap Accessibility")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Restrooms")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Cot / Baby crib")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Highchair")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Air Conditioning")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("TV")
-//                                    .build(),
-//                            Amenity.builder()
-//                                    .amenity("Kitchen")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("BBQ Grill")
-//                                    .build(),
-//                            Amenity.builder()
-//                                    .amenity("Fire Pit")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Indoor Fireplace")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Outdoor Shower")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Washing Machine")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Dishwasher")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Pool")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Hot tub")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Sauna")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Tennis")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Beach Access")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Lake Access")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Diving Access")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Fishing")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Riding")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Exercise Nearby")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Hunting")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Golf")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Ski")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("First Aid Kit")
-//                                    .build(),Amenity.builder()
-//                                    .amenity("Fire Extinguisher")
-//                                    .build(),
-//                            Amenity.builder()
-//                                    .amenity("Smoke Alarm")
-//                                    .build()));
-//
-//
-//            venueRepository.save(Venue.builder()
-//                            .title("title")
-//                            .available(true)
-//                            .owner(owner)
-//                            .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Kitchen")))
-//                            .rating(List.of(Rating.builder()
-//                                                    .rating(3)
-//                                                    .comment("yay")
-//                                                    .rater(rater)
-//                                            .build(),
-//                                            Rating.builder()
-//                                                    .rating(2)
-//                                                    .comment("yay")
-//                                                    .rater(rater2)
-//                                            .build()))
-//                            .info(VenueInfo.builder()
-//                                    .price(5000)
-//                                    .guestQuantity(5)
-//                                    .beds(5)
-//                                    .squareMeter(100D)
-//                                    .build())
-//                            .venueLocation(VenueLocation.builder()
-//                                    .street("gata")
-//                                    .city("sthlm")
-//                                    .zip("124321")
-//                                    .country("nor")
-//                                    .build())
-//                            .venueMedia(List.of(VenueMedia.builder()
-//                                                    .description("kök")
-//                                                    .image("bild")
-//                                                .build(),
-//                                                VenueMedia.builder()
-//                                                    .description("toa")
-//                                                    .image("bild")
-//                                                .build()))
-//                            .build());
+    @Bean
+    public CommandLineRunner hej(LanguageRepository languageRepository,
+                                 UserRepository userRepository,
+                                 VenueRepository venueRepository,
+                                 AmenityRepository amenityRepository
+                                 ){
+        return (args -> {
+
+            userRepository.save(
+                    User.builder()
+                    .email("email@mail.se")
+                    .password("123")
+                    .role(Role.USER)
+                    .info(UserInfo.builder()
+                            .firstName("sven")
+                            .lastName("svensson")
+                            .birthDate("1923")
+                            .build())
+                    .media(UserMedia.builder()
+                            .avatar("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
+                            .background("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
+                            .build())
+                    .build());
+
+            userRepository.save(
+                    User.builder()
+                            .email("bla@mail.se")
+                            .password("123")
+                            .role(Role.USER)
+                            .info(UserInfo.builder()
+                                    .firstName("saga")
+                                    .lastName("svensson")
+                                    .birthDate("5523")
+                                    .build())
+                            .media(UserMedia.builder()
+                                    .avatar("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
+                                    .background("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
+                                    .build())
+                            .build());
+
+            userRepository.save(
+                    User.builder()
+                            .email("klo@mail.se")
+                            .password("123")
+                            .role(Role.USER)
+                            .info(UserInfo.builder()
+                                    .firstName("mårten")
+                                    .lastName("klasson")
+                                    .birthDate("52132")
+                                    .build())
+                            .media(UserMedia.builder()
+                                    .avatar("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
+                                    .background("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
+                                    .build())
+                            .build());
+
+            User rater = userRepository.findByEmail("bla@mail.se").orElseThrow(() -> new EntityNotFoundException("User not found"));
+            User rater2 = userRepository.findByEmail("klo@mail.se").orElseThrow(() -> new EntityNotFoundException("User not found"));
+            User owner = userRepository.findByEmail("email@mail.se").orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+            amenityRepository.saveAll(List.of(Amenity.builder()
+                            .amenity("Wifi")
+                            .build(),
+                            Amenity.builder()
+                                    .amenity("Free Parking")
+                                    .build(),
+                            Amenity.builder()
+                                    .amenity("Paid Parking")
+                                    .build(),
+                            Amenity.builder()
+                                    .amenity("Public Transportation")
+                                    .build(),
+                            Amenity.builder()
+                                    .amenity("EV Charging Station")
+                                    .build(),
+                            Amenity.builder()
+                                    .amenity("Handicap Accessibility")
+                                    .build(),Amenity.builder()
+                                    .amenity("Restrooms")
+                                    .build(),Amenity.builder()
+                                    .amenity("Cot / Baby crib")
+                                    .build(),Amenity.builder()
+                                    .amenity("Highchair")
+                                    .build(),Amenity.builder()
+                                    .amenity("Air Conditioning")
+                                    .build(),Amenity.builder()
+                                    .amenity("TV")
+                                    .build(),
+                            Amenity.builder()
+                                    .amenity("Kitchen")
+                                    .build(),Amenity.builder()
+                                    .amenity("BBQ Grill")
+                                    .build(),
+                            Amenity.builder()
+                                    .amenity("Fire Pit")
+                                    .build(),Amenity.builder()
+                                    .amenity("Indoor Fireplace")
+                                    .build(),Amenity.builder()
+                                    .amenity("Outdoor Shower")
+                                    .build(),Amenity.builder()
+                                    .amenity("Washing Machine")
+                                    .build(),Amenity.builder()
+                                    .amenity("Dishwasher")
+                                    .build(),Amenity.builder()
+                                    .amenity("Pool")
+                                    .build(),Amenity.builder()
+                                    .amenity("Hot tub")
+                                    .build(),Amenity.builder()
+                                    .amenity("Sauna")
+                                    .build(),Amenity.builder()
+                                    .amenity("Tennis")
+                                    .build(),Amenity.builder()
+                                    .amenity("Beach Access")
+                                    .build(),Amenity.builder()
+                                    .amenity("Lake Access")
+                                    .build(),Amenity.builder()
+                                    .amenity("Diving Access")
+                                    .build(),Amenity.builder()
+                                    .amenity("Fishing")
+                                    .build(),Amenity.builder()
+                                    .amenity("Riding")
+                                    .build(),Amenity.builder()
+                                    .amenity("Exercise Nearby")
+                                    .build(),Amenity.builder()
+                                    .amenity("Hunting")
+                                    .build(),Amenity.builder()
+                                    .amenity("Golf")
+                                    .build(),Amenity.builder()
+                                    .amenity("Ski")
+                                    .build(),Amenity.builder()
+                                    .amenity("First Aid Kit")
+                                    .build(),Amenity.builder()
+                                    .amenity("Fire Extinguisher")
+                                    .build(),
+                            Amenity.builder()
+                                    .amenity("Smoke Alarm")
+                                    .build()));
+
+
+
+
+            Venue v = Venue.builder()
+                            .title("title")
+                            .available(true)
+                            .owner(owner)
+                            .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Kitchen")))
+                            .rating(List.of(Rating.builder()
+                                                    .rating(3)
+                                                    .comment("yay")
+                                                    .rater(rater)
+                                            .build(),
+                                            Rating.builder()
+                                                    .rating(2)
+                                                    .comment("yay")
+                                                    .rater(rater2)
+                                            .build()))
+                            .info(VenueInfo.builder()
+                                    .price(5000)
+                                    .guestQuantity(5)
+                                    .beds(5)
+                                    .bathrooms(2)
+                                    .squareMeter(100D)
+                                    .build())
+                            .venueLocation(VenueLocation.builder()
+                                    .street("gata")
+                                    .city("sthlm")
+                                    .zip("124321")
+                                    .country("nor")
+                                    .build())
+                    .venueMedia(new ArrayList<>())
+                            .build();
+
+            VenueMedia m1 = VenueMedia.builder()
+                                    .description("kök")
+                                    .image("bild")
+                                    .build();
+
+            VenueMedia m2 = VenueMedia.builder()
+                    .description("toa")
+                    .image("bild")
+                    .build();
+
+            v.getVenueMedia().add(m1);
+            v.getVenueMedia().add(m2);
+
+            m1.setVenue(v);
+            m2.setVenue(v);
+
+            venueRepository.save(v);
+
 //
 //            venueRepository.save(Venue.builder()
 //                    .title("title")
@@ -253,6 +237,7 @@ public class ResTapiApplication {
 //                            .price(5000)
 //                            .guestQuantity(5)
 //                            .beds(5)
+//                            .bathrooms(2)
 //                            .squareMeter(102D)
 //                            .build())
 //                    .venueLocation(VenueLocation.builder()
@@ -291,6 +276,7 @@ public class ResTapiApplication {
 //                            .guestQuantity(5)
 //                            .beds(5)
 //                            .squareMeter(105D)
+//                            .bathrooms(2)
 //                            .build())
 //                    .venueLocation(VenueLocation.builder()
 //                            .street("gata")
@@ -327,6 +313,7 @@ public class ResTapiApplication {
 //                            .price(5000)
 //                            .guestQuantity(5)
 //                            .beds(5)
+//                            .bathrooms(2)
 //                            .squareMeter(109D)
 //                            .build())
 //                    .venueLocation(VenueLocation.builder()
@@ -363,6 +350,7 @@ public class ResTapiApplication {
 //                    .info(VenueInfo.builder()
 //                            .price(5000)
 //                            .guestQuantity(5)
+//                            .bathrooms(2)
 //                            .beds(5)
 //                            .squareMeter(80D)
 //                            .build())
@@ -401,6 +389,7 @@ public class ResTapiApplication {
 //                            .price(5000)
 //                            .guestQuantity(5)
 //                            .beds(5)
+//                            .bathrooms(2)
 //                            .squareMeter(200D)
 //                            .build())
 //                    .venueLocation(VenueLocation.builder()
@@ -438,6 +427,7 @@ public class ResTapiApplication {
 //                            .price(5000)
 //                            .guestQuantity(5)
 //                            .beds(5)
+//                            .bathrooms(2)
 //                            .squareMeter(77D)
 //                            .build())
 //                    .venueLocation(VenueLocation.builder()
@@ -474,6 +464,7 @@ public class ResTapiApplication {
 //                    .info(VenueInfo.builder()
 //                            .price(5000)
 //                            .guestQuantity(5)
+//                            .bathrooms(2)
 //                            .beds(5)
 //                            .squareMeter(124D)
 //                            .build())
@@ -513,6 +504,7 @@ public class ResTapiApplication {
 //                            .guestQuantity(5)
 //                            .beds(5)
 //                            .squareMeter(421D)
+//                            .bathrooms(2)
 //                            .build())
 //                    .venueLocation(VenueLocation.builder()
 //                            .street("gata")
@@ -549,6 +541,7 @@ public class ResTapiApplication {
 //                            .price(5000)
 //                            .guestQuantity(5)
 //                            .beds(5)
+//                            .bathrooms(2)
 //                            .squareMeter(523D)
 //                            .build())
 //                    .venueLocation(VenueLocation.builder()
@@ -586,6 +579,7 @@ public class ResTapiApplication {
 //                            .price(5000)
 //                            .guestQuantity(5)
 //                            .beds(5)
+//                            .bathrooms(2)
 //                            .squareMeter(55D)
 //                            .build())
 //                    .venueLocation(VenueLocation.builder()
@@ -623,6 +617,7 @@ public class ResTapiApplication {
 //                            .price(5000)
 //                            .guestQuantity(5)
 //                            .beds(5)
+//                            .bathrooms(2)
 //                            .squareMeter(99D)
 //                            .build())
 //                    .venueLocation(VenueLocation.builder()
@@ -660,6 +655,7 @@ public class ResTapiApplication {
 //                            .price(5000)
 //                            .guestQuantity(5)
 //                            .beds(5)
+//                            .bathrooms(2)
 //                            .squareMeter(76D)
 //                            .build())
 //                    .venueLocation(VenueLocation.builder()
@@ -697,6 +693,7 @@ public class ResTapiApplication {
 //                            .price(5000)
 //                            .guestQuantity(5)
 //                            .beds(5)
+//                            .bathrooms(2)
 //                            .squareMeter(99D)
 //                            .build())
 //                    .venueLocation(VenueLocation.builder()
@@ -704,6 +701,10 @@ public class ResTapiApplication {
 //                            .city("sthlm")
 //                            .zip("124321")
 //                            .country("swe")
+//                            .lat(5.00)
+//                            .lng(2.00)
+//                            .placeId("askjd")
+//                            .state("asd")
 //                            .build())
 //                    .venueMedia(List.of(VenueMedia.builder()
 //                                    .description("kök")
@@ -714,7 +715,7 @@ public class ResTapiApplication {
 //                                    .image("bild")
 //                                    .build()))
 //                    .build());
-//
+
 //            List<String> list = List.of("Afrikaans",
 //                    "Albanian",
 //                    "Amharic",
@@ -851,6 +852,6 @@ public class ResTapiApplication {
 //            list.forEach(e->{
 //                languageRepository.save(new Language(e));
 //            });
-//        });
-//    }
+        });
+    }
 }

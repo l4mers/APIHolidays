@@ -5,6 +5,7 @@ import com.restapi.restapi.repositories.AmenityRepository;
 import com.restapi.restapi.repositories.UserRepository;
 import com.restapi.restapi.repositories.VenueRepository;
 import com.restapi.restapi.request.SearchVenueRequest;
+import com.restapi.restapi.request.VenueMediaRequest;
 import com.restapi.restapi.request.VenueRequest;
 import com.restapi.restapi.responses.home.AffordableVenue;
 import com.restapi.restapi.responses.home.HomeScreen;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -155,33 +157,26 @@ public class VenueController {
 //
 //    }
 
-    @GetMapping("/get/vanues/")
-    public List<Venue> getVenuesWithPriceLowerThan(@RequestParam("price") Integer price) {
-        return venueRepository.findVenuesWithPriceLowerThan(price);
-    }
+//    @GetMapping("/get/venues/")
+//    public List<Venue> getVenuesWithPriceLowerThan(@RequestParam("price") Integer price) {
+//        return venueRepository.findVenuesWithPriceLowerThan(price);
+//    }
 
-    @PostMapping("get/test")
-    public ResponseEntity<String> test(@RequestBody String tryMe){
-        System.out.println(tryMe);
-        if(tryMe.equals("hej")){
-            return ResponseEntity.ok("Du skrev hej");
-        }
-        return ResponseEntity.ok("du skrev inte hej");
-    }
-    @PostMapping("get/venue/register/{id}")
-    public ResponseEntity<Long> registerVenueTest(@PathVariable Long id,
+    @PostMapping("get/venue/register/{userId}")
+    public ResponseEntity<Long> registerVenue(@PathVariable Long userId,
                                                @RequestBody VenueRequest venueRequest){
 
-        return ResponseEntity.ok(venueRepository.save(Venue.builder()
-                .title(venueRequest.getTitle())
+        Venue v = Venue.builder()
+                .title("title")
                 .available(true)
-                .owner(userRepository.findById(id).orElseThrow())
+                .owner(userRepository.findById(userId).orElseThrow())
                 .amenity(amenityRepository.findByAmenityIn(venueRequest.getAmenities()))
                 .info(VenueInfo.builder()
                         .price(venueRequest.getPrice())
                         .squareMeter(venueRequest.getSquareMeter())
                         .beds(venueRequest.getBeds())
                         .guestQuantity(venueRequest.getGuests())
+                        .bathrooms(venueRequest.getBathrooms())
                         .description(venueRequest.getDescription())
                         .bathrooms(venueRequest.getBathrooms())
                         .build())
@@ -195,16 +190,23 @@ public class VenueController {
                         .placeId(venueRequest.getPlaceId())
                         .state(venueRequest.getState())
                         .build())
-                .venueMedia(venueRequest.getMedia().stream().map(e-> VenueMedia.builder()
-                        .image(e.getImage())
-                        .description(e.getDescription())
-                        .build()).collect(Collectors.toList()))
-                .build()).getId());
+                .venueMedia(new ArrayList<>())
+                .build();
+
+        List<VenueMedia> venueMedia = venueRequest.getMedia().stream().map(e -> VenueMedia.builder()
+                .image(e.getImage())
+                .description(e.getDescription())
+                .venue(v)
+                .build()).toList();
+
+        v.setVenueMedia(venueMedia);
+
+        return ResponseEntity.ok(venueRepository.save(v).getId());
     }
 
     @PutMapping("get/venue/update/{id}")
-    public ResponseEntity<Long> updateVenueTest(@PathVariable Long id,
-                                                  @RequestBody VenueRequest venueRequest){
+    public ResponseEntity<Long> updateVenue(@PathVariable Long id,
+                                            @RequestBody VenueRequest venueRequest){
         Venue venue = venueRepository.findById(id)
                 .orElseThrow();
         venue.setTitle(venue.getTitle());
@@ -214,12 +216,72 @@ public class VenueController {
                 .squareMeter(venueRequest.getSquareMeter())
                 .beds(venueRequest.getBeds())
                 .guestQuantity(venueRequest.getGuests())
+                .bathrooms(venueRequest.getBathrooms())
                 .description(venueRequest.getDescription())
                 .build());
-        venue.setVenueMedia(venueRequest.getMedia().stream().map(e-> VenueMedia.builder()
-                .image(e.getImage())
-                .description(e.getDescription())
-                .build()).collect(Collectors.toList()));
-        return ResponseEntity.ok(venue.getId());
+        venue.setVenueLocation(VenueLocation.builder()
+                .country(venueRequest.getCountry())
+                .zip(venueRequest.getZip())
+                .city(venueRequest.getCity())
+                .street(venueRequest.getStreet())
+                .lat(venueRequest.getLat())
+                .lng(venueRequest.getLng())
+                .placeId(venueRequest.getPlaceId())
+                .state(venueRequest.getState())
+                .build());
+
+        List<VenueMedia> venueMediaList = venue.getVenueMedia();
+        if (venueMediaList == null) {
+            venueMediaList = new ArrayList<>();
+        } else {
+            venueMediaList.clear();
+        }
+        venue.getVenueMedia().forEach(e->{
+            e.setVenue(null);
+        });
+
+        for (VenueMediaRequest vmr :
+                venueRequest.getMedia()) {
+            venueMediaList.add(VenueMedia.builder()
+                    .image(vmr.getImage())
+                    .description(vmr.getImage())
+                    .venue(venue)
+                    .build());
+        }
+        venue.setVenueMedia(venueMediaList);
+
+        return ResponseEntity.ok(venueRepository.save(venue).getId());
+    }
+
+    @PutMapping("get/venue/updatetest/{id}")
+    public ResponseEntity<Long> updateVenueTest(@PathVariable Long id,
+                                            @RequestBody VenueMediaRequest venueRequest){
+        Venue venue = venueRepository.findById(id).orElseThrow();
+
+        List<VenueMedia> venueMediaList = venue.getVenueMedia();
+        if (venueMediaList == null) {
+            venueMediaList = new ArrayList<>();
+        } else {
+            venueMediaList.clear();
+        }
+        venue.getVenueMedia().forEach(e->{
+            e.setVenue(null);
+        });
+
+        VenueMedia updatedVenueMedia = VenueMedia.builder()
+                .image(venueRequest.getImage())
+                .description(venueRequest.getDescription())
+                .venue(venue)
+                .build();
+        venueMediaList.add(updatedVenueMedia);
+        venue.setVenueMedia(venueMediaList);
+
+        return ResponseEntity.ok(venueRepository.save(venue).getId());
+    }
+
+    @DeleteMapping("get/venue/delete/{venueId}")
+    public ResponseEntity<String> deleteVenue(@PathVariable Long venueId){
+        venueRepository.deleteById(venueId);
+        return ResponseEntity.ok("deleted");
     }
 }

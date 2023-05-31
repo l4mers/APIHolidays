@@ -23,10 +23,8 @@ public class Venue {
     private String title;
     private boolean available;
     @ManyToOne
-    @JoinColumn
     private User owner;
     @ManyToMany
-    @JoinTable
     private List<Amenity> amenity;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Rating> rating;
@@ -34,9 +32,9 @@ public class Venue {
     private VenueInfo info;
     @OneToOne(cascade = CascadeType.ALL)
     private VenueLocation venueLocation;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VenueMedia> venueMedia;
-    @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookings;
     private Date created;
     private Date updated;

@@ -30,7 +30,6 @@ public class UserInfo {
     private String birthDate;
 
     @ManyToMany
-    @JoinTable
     private List<Language> language;
     private Date created;
     private Date updated;

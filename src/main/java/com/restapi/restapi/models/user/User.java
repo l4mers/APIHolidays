@@ -35,24 +35,26 @@ public class User implements UserDetails {
     private String email;
     @NotNull
     private String password;
-    @OneToMany(mappedBy = "owner")
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Venue> venues;
-    @OneToMany(mappedBy = "booker")
+
+    @OneToMany(mappedBy = "booker", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Booking> bookings;
 
-    @OneToMany(mappedBy = "rater")
+    @OneToMany(mappedBy = "rater", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Rating> ratings;
-    //@JoinColumn
+
     @OneToOne(cascade = CascadeType.ALL)
     private UserInfo info;
     @OneToOne(cascade = CascadeType.ALL)
     private UserMedia media;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private UserAddress address;
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Memory> memories;
 
     @Enumerated(EnumType.STRING)
@@ -70,7 +72,7 @@ public class User implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() { // Returnerar en lista av roller
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 

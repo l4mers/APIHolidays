@@ -21,11 +21,9 @@ public class Booking {
     private Long id;
 
     @ManyToOne
-    @JoinColumn
     private User booker;
 
     @ManyToOne
-    @JoinColumn
     private Venue venue;
 
     private Integer guests;
