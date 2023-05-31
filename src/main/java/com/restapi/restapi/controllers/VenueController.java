@@ -235,39 +235,26 @@ public class VenueController {
     public ResponseEntity<Long> updateVenueTest(@PathVariable Long id,
                                             @RequestBody VenueMediaRequest venueRequest){
         Venue venue = venueRepository.findById(id).orElseThrow();
-        List<VenueMedia> venueMedias = new ArrayList<>();
-        VenueMedia venueMedia = VenueMedia.builder()
+
+        List<VenueMedia> venueMediaList = venue.getVenueMedia();
+        if (venueMediaList == null) {
+            venueMediaList = new ArrayList<>();
+        } else {
+            venueMediaList.clear();
+        }
+        venue.getVenueMedia().forEach(e->{
+            e.setVenue(null);
+        });
+
+        VenueMedia updatedVenueMedia = VenueMedia.builder()
                 .image(venueRequest.getImage())
                 .description(venueRequest.getDescription())
                 .venue(venue)
                 .build();
+        venueMediaList.add(updatedVenueMedia);
+        venue.setVenueMedia(venueMediaList);
 
-        venueMedias.add(venueMedia);
-        venue.setVenueMedia(venueMedias);
-
-
-
-//        venue.setTitle(venue.getTitle());
-//        venue.setAmenity(amenityRepository.findByAmenityIn(venueRequest.getAmenities()));
-//        venue.setInfo(VenueInfo.builder()
-//                .price(venueRequest.getPrice())
-//                .squareMeter(venueRequest.getSquareMeter())
-//                .beds(venueRequest.getBeds())
-//                .guestQuantity(venueRequest.getGuests())
-//                .bathrooms(venueRequest.getBathrooms())
-//                .description(venueRequest.getDescription())
-//                .build());
-//
-//        List<VenueMedia> venueMedia = venueRequest.getMedia().stream().map(e -> VenueMedia.builder()
-//                .image(e.getImage())
-//                .description(e.getDescription())
-//                .venue(venue)
-//                .build()).toList();
-//
-//        venue.setVenueMedia(venueMedia);
-        venueRepository.save(venue);
-
-        return ResponseEntity.ok(3L);
+        return ResponseEntity.ok(venueRepository.save(venue).getId());
     }
 
     @DeleteMapping("get/venue/delete/{venueId}")
