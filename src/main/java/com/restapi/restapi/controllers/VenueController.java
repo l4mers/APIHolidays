@@ -235,12 +235,16 @@ public class VenueController {
     public ResponseEntity<Long> updateVenueTest(@PathVariable Long id,
                                             @RequestBody VenueMediaRequest venueRequest){
         Venue venue = venueRepository.findById(id).orElseThrow();
-        List<VenueMedia> venueMedia = List.of(VenueMedia.builder()
+        List<VenueMedia> venueMedias = new ArrayList<>();
+        VenueMedia venueMedia = VenueMedia.builder()
                 .image(venueRequest.getImage())
                 .description(venueRequest.getDescription())
                 .venue(venue)
-                .build());
-        venue.setVenueMedia(venueMedia);
+                .build();
+
+        venueMedias.add(venueMedia);
+        venue.setVenueMedia(venueMedias);
+
 
 
 //        venue.setTitle(venue.getTitle());
