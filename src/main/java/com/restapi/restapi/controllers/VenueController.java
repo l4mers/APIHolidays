@@ -237,7 +237,7 @@ public class VenueController {
                                             @RequestBody VenueRequest venueRequest){
         Venue venue = venueRepository.findById(id)
                 .orElseThrow();
-        venue.setTitle(venue.getTitle());
+        venue.setTitle(venueRequest.getTitle());
         venue.setAmenity(amenityRepository.findByAmenityIn(venueRequest.getAmenities()));
         venue.setInfo(VenueInfo.builder()
                 .price(venueRequest.getPrice())

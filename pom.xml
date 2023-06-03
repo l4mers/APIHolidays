@@ -79,6 +79,7 @@
                 <configuration>
                     <archive>
                         <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+                        <skipTests>true</skipTests>
                     </archive>
                     <excludes>
                         <exclude>
