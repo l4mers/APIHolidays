@@ -80,19 +80,19 @@ public class VenueController {
                                 .avatar(venue.getOwner().getMedia().getAvatar())
                                 .build())
                         .amenities(venue.getAmenity().stream().map(Amenity::getAmenity).toList())
-                        .venueProfileRatings(venue.getRating().stream().map(e->{
-                            VenueProfileRating vpr = new VenueProfileRating();
-                            vpr.setComment(e.getComment());
-                            vpr.setRater(VenueProfileUser.builder()
-                                            .id(e.getRater().getId())
-                                            .avatar(e.getRater().getMedia().getAvatar())
-                                            .name(e.getRater().getInfo().getFirstName() +
-                                                    " " + e.getRater().getInfo().getLastName())
-                                    .build());
-                            vpr.setComment(e.getComment());
-                            vpr.setCreated(e.getCreated());
-                            return vpr;
-                        }).toList())
+//                        .venueProfileRatings(venue.getRating().stream().map(e->{
+//                            VenueProfileRating vpr = new VenueProfileRating();
+//                            vpr.setComment(e.getComment());
+//                            vpr.setRater(VenueProfileUser.builder()
+//                                            .id(e.getRater().getId())
+//                                            .avatar(e.getRater().getMedia().getAvatar())
+//                                            .name(e.getRater().getInfo().getFirstName() +
+//                                                    " " + e.getRater().getInfo().getLastName())
+//                                    .build());
+//                            vpr.setComment(e.getComment());
+//                            vpr.setCreated(e.getCreated());
+//                            return vpr;
+//                        }).toList())
                         .price(venue.getInfo().getPrice())
                         .guestQuantity(venue.getInfo().getGuestQuantity())
                         .beds(venue.getInfo().getBeds())
